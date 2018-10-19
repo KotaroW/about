@@ -138,13 +138,21 @@
 	}
 	#panel div button {
 		border: none;
-		background: #369;
+		background: #999;
 		color: #eee;
 		width: 10%;
 		flex: none 1 auto;
 		text-transform: uppercase;
-		cursor: pointer;
+        transition: all 1s ease-in-out;
 	}
+    #panel div button.button-enabled {
+        background-color: #369;
+        cursor: pointer;
+    }
+    #panel div button.button-disabled {
+        background-color: #999;
+        cursor: default;
+    }
     #panel section {
 		position: relative;
 		z-index: 5;
@@ -156,7 +164,7 @@
         cursor: pointer;
     }
     #panel section > span {
-    	font-size: 30vw;
+    	font-size: 30vh;
     }
     main {
 		padding: 1em 0 0 0;
@@ -475,7 +483,9 @@
             height: 16px;
         }
     }
-    
+    .animationPaused {
+        animation-play-state: paused !important;
+    }
     
 </style>
 </head>
@@ -495,7 +505,7 @@
 
     <div id="panel">
         <div>
-            <input placeholder="start number" maxlength="6"><input placeholder="end number" maxlength="6"><button onclick="go();">Go</button>
+            <input placeholder="start number" maxlength="6"><input placeholder="end number" maxlength="6"><button disabled="true" onclick="go();">Go</button>
         </div>
         <section>
             <span>&#0;</span>
@@ -777,7 +787,7 @@
                     
                 },
                 false
-            )
+            );
         }
         
         
@@ -814,15 +824,17 @@
                     function () {
                         _animationState = (_animationState == "running") ? "paused" : "running";
                         _element.style.animationPlayState = _animationState;
+                        _element.style.webkitAssaanimationPlayState = _animationState;
+                        //_element.className = "animationPaused";
+
                     }
                 );
             }
-
             this.dropAnimation = function () {
-                _element.querySelector("span").innerHTML = "";
-                _element.style.animation = "";
+                _element.querySelector("span").innerHTML = "Start New";
+                _element.style.animation = null;
+//                alert(_element.style.animation);
             }
-
         }
 
         window.addEventListener (
@@ -841,6 +853,11 @@
                     element.addEventListener(
                         "keydown",
                         allowDigitsOnly,
+                        false
+                    );
+                    element.addEventListener(
+                        "keyup",
+                        checkInputs,
                         false
                     );
                 });
@@ -888,9 +905,22 @@
                     var keyCode = evt.keyCode;
                     if (([8, 37, 39, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]).indexOf (keyCode) == -1) {
                         evt.preventDefault();
-                    }	
+                    }                    
                 }
-
+                
+                function checkInputs () {
+                    var inpField1ValOne = document.querySelector("input:nth-of-type(1)").value;
+                    var inpField1ValTwo = document.querySelector("input:nth-of-type(2)").value;
+                    var button = document.querySelector("#panel button");
+                    
+                    
+                    var buttonReady = (inpField1ValOne && inpField1ValTwo && parseInt(inpField1ValOne) < parseInt(inpField1ValTwo));
+                    
+                    button.className = buttonReady ? "button-enabled" : "button-disabled";
+                    
+                    button.disabled = buttonReady ? false : true;
+                }
+                
                 this.addEventListener(
                     "scroll",
                     function () {
@@ -906,7 +936,6 @@
                         function animationCallback (element, delay) {
                             element.style.animation = "MonkeyMagic 500ms ease-in-out " + delay + " forwards";
                         }
-
                         document.querySelector("#backtotop").style.visibility = (parseInt(this.scrollY) > parseInt(document.documentElement.clientHeight)) ? "visible" : "hidden";
 
                     },
@@ -921,25 +950,12 @@
                         if ( clientWidth > 859 && animationName == "MonkeyOpen") {
                             toggleMenu();
                         }
-                        
                     },
                     false
                 );  
             },
             false
         );
-
-
-        function go () {
-            rotateObj.dropAnimation ();
-            //rotateObj = new Panel (document.querySelector("#panel > section"),
-                //10000,
-                //50000,
-                //["Monkey", "5s", "ease-in-out", "infinite", "alternate"]
-            //);
-            rotateObj.startRotate ();
-
-        }
 
         function backToTop() {
             var toBeScrolled = document.documentElement.scrollTop || document.body.scrollTop;
@@ -985,6 +1001,20 @@
             }
         }
 
+        function go () {
+            rotateObj.dropAnimation ();
+            
+            var startNum = parseInt(document.querySelector("#panel input:nth-of-type(1)").value);
+            var endNum = parseInt(document.querySelector("#panel input:nth-of-type(2)").value);
+
+            rotateObj = new Panel (document.querySelector("#panel > section"),
+                startNum,
+                endNum,
+                ["Monkey", "5s", "ease-in-out", "infinite", "alternate"]
+            );
+            rotateObj.startRotate ();
+
+        }
 //alert(window.getComputedStyle(document.querySelector("nav")).getPropertyValue("height"));
     </script>
 
