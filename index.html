@@ -20,10 +20,10 @@
     }
     body {
     	font: normal 100%;
-		background: url(./images/couple.jpg) no-repeat center center;
+		background: url(./fox2.jpg) no-repeat center top;
 		background-attachment: fixed !important;
-		background-size: cover !important;
-	    	-webkit-text-size-adjust: 100%;
+		background-size: cover;
+        -webkit-text-size-adjust: 100%;
     }
 	h1, h2, h3, h4, h5 {
 		font-family: "Ubuntu";
@@ -37,8 +37,8 @@
 		color: #555;
 		padding: 2em 0 1em 0;
 		overflow: hidden;
-		border: dashed 1px #036;
-		border-width: 0 0 0 5px;
+		border: dotted 1px #555;
+		border-width: 0 0 0 1px;
 	}
 	h2 > span {
 		padding: 0.5em 1em;
@@ -72,7 +72,7 @@
    	nav {
 		font-family: "Ubuntu";
         padding: 1em 0;
-        background: #333;
+        background: #036384;
         position: fixed;
 		top: 0;
 		width: 100%;
@@ -93,7 +93,6 @@
     	text-decoration: none;
         color: #aaa;
         transition: all 0.25s ease-in-out;
-
     }
     nav ul li:not(:first-of-type) a:hover {
     	padding-bottom: 0.25em;
@@ -185,11 +184,12 @@
 	}
 	main > section:first-of-type p {
 		max-width: 38em;
-		font-size: 1.25em;
+		font-size: 1.15em;
 		line-height: 1.8;
 		background: #ddd;
 		padding: 3em 2em;
 		margin-bottom: 0.5em;
+        color: #333;
 	}
 	main > section:first-of-type p::first-letter {
 		font-size: 3em;
@@ -197,11 +197,12 @@
         line-height: 0.5em;
         margin: 0.2em 0.1em 0.1em 0;
 		float: left;
-		color: #841;
+		color: #888;
 	}
 	main > section:first-of-type p:nth-of-type(even) {
 		margin: 0 auto 0.5em;
 	}
+    /*
 	main > section:first-of-type p:nth-of-type(1) {
 		border: solid 5px #369;
 	}
@@ -214,6 +215,7 @@
 	main > section:first-of-type p:nth-of-type(4) {
 		border: double 5px #369;
 	}
+    */
 	main > section:nth-of-type(2) > div {
 		display: flex;
 		flex-flow: row;
@@ -263,6 +265,8 @@
 		flex-flow: row;
         align-content: flex-start;
 		justify-content: space-around;
+        max-width: 48em;
+        margin: auto;
 	}
 	section#education > div > div {
 		flex: 1 1 360px;
@@ -292,28 +296,33 @@
         text-align: center;
     }
     #work-experience {
-        background: #eaeaea;
-        color: #eaeaea;
+        background: #ececec;
+        color: #555;
     }
     #work-experience h2 > span {
         transform: rotate(-2.5deg);
     }
     #work-experience h3 {
-        font-size: 2.5em;
+        font-size: 3em;
         text-align: center;
     }
     #work-experience div > span {
         display: block;
         text-align: center;
-        color: #eaeaea;
+        color: #555;
+    }
+    #work-experience span:first-of-type {
+        margin: 1em 0;
     }
     #work-experience span > strong {
         font-size: 1.5em;
         display: inline-block;
         margin: 1em auto;
+        font-weight: normal;
     }
     #work-experience p {
-        max-width: 58em;
+        max-width: 48em;
+        text-align: center;
         padding: 0 1em;
         font-size: 1.1em;
         margin: auto;
@@ -333,25 +342,25 @@
         margin: 0.5em 0 0 2em;
     }
     #work-experience > div {
-        padding: 2em;
+        padding: 6em 1em;
     }
-    #work-experience > div:first-of-type {
-        background: #036;
+    #work-experience > div:nth-of-type(odd) {
+        background: #fff;
     }
     #work-experience > div:first-of-type h3 {
-        color: #9cf;
+        /*color: #9cf;*/
     }
     #work-experience > div:nth-of-type(2) {
-        background: #434343;
+        /*background: #434343;*/
     }
     #work-experience > div:nth-of-type(2) h3 {
-        color: #ccc;
+        /*color: #ccc;*/
     }
     #work-experience > div:nth-of-type(3) {
-        background: #078;
+        /*background: #078;*/
     }
     #work-experience > div:nth-of-type(3) h3 {
-        color: #ccc;
+        /*color: #ccc;*/
     }
     #interests > div {
         display: flex;
@@ -366,7 +375,7 @@
     #interests div > span {
         display: block;
         position: absolute;
-        font-size: 7.5vw;
+        font-size: 5vw;
         color: #fff;
         text-shadow: 1px 1px #000;
     }
@@ -383,7 +392,7 @@
         font-size: 0.8em;
         text-align: center;
         color: #aaa;
-	position: relative;
+        position: relative;
     }
     footer * {
         display: block;
@@ -399,16 +408,28 @@
         justify-content: center;
         width: 1.5em;
         height: 1.5em;
-        background: #eec;
+        background: #fff;
         position: fixed;
         bottom: 2em;
         right: 0.5em;
         z-index: 50;
         border-radius: 100%;
-        border: solid 3px #775;
-        color: #333;
+        border: solid 2px #777;
+        color: #777;
         cursor: pointer;
         visibility: hidden;
+        transform: rotate(-90deg);
+        opacity: 0.5;
+        transition: all 500ms ease-in-out;
+    }
+    #backtotop:hover {
+        opacity: 1;
+    }
+    div#work-experience a {
+        color: #47a;
+        text-decoration: none;
+        padding-bottom: 1px;
+        border-bottom: solid 1px #7ad;
     }
 	@media screen and (max-width: 999px) {
 		h2 span {
@@ -495,7 +516,7 @@
     <div id="psudoBackground"></div>
     <nav>
         <ul>
-            <li id="menu-toggler" ><a href="javascript:void(0);" onclick="toggleMenu(this);">&#35;M</a></li>
+            <li id="menu-toggler" ><a href="javascript:void(0);" onclick="toggleMenu(this);">&#35;MENU</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#education">Education</a></li>
@@ -518,13 +539,11 @@
 
         <section>
             <h2><span>About</span></h2>
-            <p>I am an experienced information system engineer with a strong focus on web development, programming as well as a wealth of knowledge and experience in user-support, troubleshooting, hardware and software and information security.</p>
-            <p>As a system engineer, I am skilled at providing high quality services in the overall IT areas and
-    applying my strong technical and problem-solving skills to get things done quickly and properly. I am
-    also an excellent team player who can bring stability and robustness to the team.</p>
-            <p>Having emigrated in 2014 after ten successful years in Singapore, I am looking to continue my career,
-    having completed a post graduate study in Information Technology in May 2017. After the completion of my study, I have undertaken two volunteer IT roles to gain New Zealand experience, one of which is ongoing. I’m currently working for Hearts & Minds (formerly known as Raeburn House) as a part-time web developer/IT coordinator.</p>
-            <p>I’m a work visa holder and the visa will not expire until June 2021.</p>
+            <p>I am an experienced Information Technology All-rounder with a strong focus on web development, programming as well as a wealth of knowledge and experience in user-support, troubleshooting, hardware and software and information security.</p>
+            <p>As a technical person, I am skilled at providing high quality services in the overall ICT areas and
+    applying my strong technical and problem-solving skills to get things done quickly and properly. I am also an excellent team player who can bring stability and robustness to the team.</p>
+            <p>After 10 successful years in Singapore, I migrated to New Zealand in 2014 and completed a Post Graduate study in Information Technology in May 2017. <!--After the completion of my study, I have undertaken two volunteer IT roles to gain New Zealand experience, one of which is ongoing.--> I’m currently working for Hearts &amp; Minds (formerly known as Raeburn House) as a Developer/IT Coordinator.</p>
+            <!--<p>I’m a work visa holder and the visa will not expire until June 2021.</p>-->
         </section>
 
         <section>
@@ -593,115 +612,23 @@
         <section id="work-experience">
             <h2><span>Work Experience</span></h2>
             <div>
-                <h3>Hearts &amp; Minds</h3>
+                <h3>Hearts &amp; Minds Inc.</h3>
                 <span>August 2017 - Present</span>
-                <span><strong>Developer / IT Coordinator</strong></span>
-                <p>Hearts and Minds, formerly known as Raeburn House, is one of the most renowned social profit organisations in New Zealand. My main responsibilities are as follows:</p>
-                <ol>
-                    <li>Website (http://www.raeburnhouse.org.nz/) management and development
-                        <ul>
-                            <li>A CMS is used to manage the contents. I mainly hard-code the updates or newly
-    developed web parts on the CMS. I added a responsive functionality to the main navigation menu.</li>
-                        </ul>
-                    </li>
-                    <li>Debug/Develop mobile applications (Java, PHP)
-                        <ul>
-                            <li>The current mobile apps faced an issue with data loading. I fixed the issue by changing the server settings and cleaning up the code. Currently I’m prototyping a new mobile apps with Apache Cordova.</li>
-                        </ul>
-                    </li>
-                    <li>Database (MySQL) administration to update service directory database
-                        <ul>
-                            <li>The entire service directory is updated once two years. I converted the original Excel data into the database format and imported the processed data into the database. This work involved backing up the previous data.</li>
-                        </ul>
-                    </li>
-                    <li>Design/photograph processing for websites and other purposes (Adobe suites)
-                        <ul>
-                            <li>Process images for the website by using Adobe suites and GIMP. Also engaged indesign change.</li>
-                        </ul>
-                    </li>
-                    <li>Campaign Mail
-                        <ul>
-                            <li>Just started working on campaign mails with MailChimp.</li>
-                        </ul>
-                    </li>
-                    <li>Miscellaneous work
-                        <ul>
-                            <li>Troubleshooting</li>
-                        </ul>
-                    </li>
-                </ol>
+                <span><strong>Developer / ICT Coordinator</strong></span>
+                <p><a href="https://www.heartsandminds.org.nz">Hearts and Minds</a>, formerly known as Raeburn House, is one of the most renowned social profit organisations in New Zealand.</p>
             </div>
             <div>
-                <h3>Kyoya Japanese Restaurant</h3>
+                <h3>Kyoya Takapuna</h3>
                 <span>May 2017 - Present</span>
                 <span><strong>Volunteer Web Developer</strong></span>
-                <p>Kyoya Japanese Restaurant was established in 1995 and has been loved by local customers. The restaurant is well-known for the authentic Japanese cuisine. As a volunteer, I have been working on the following:</p>
-                <ol>
-                    <li>Website Development / Management (<a href="https://www.kyoya.co.nz">www.kyoya.co.nz</a>)
-                        <ul>
-                            <li>I have developed the new website with PHP, HTML, CSS and JavaScript and am
-    currently working on further development.</li>
-                        </ul>
-                    </li>
-                    <li>New domain acquisition (kyoya.co.nz) and setting up the website environment
-                        <ul>
-                            <li>I made a domain request on behalf of the restaurant by corresponding with the web hosting provider.</li>
-                        </ul>
-                    </li>
-                    <li>Gift voucher/Drink menu design
-                        <ul>
-                            <li>Designed a new gift voucher by using an online design tool.</li>
-                        </ul>
-                    </li>
-                    <li>Design/photograph processing for websites and other purposes (Adobe suites)
-                        <ul>
-                            <li>Process images for the website by using Adobe suites and GIMP. Also engaged indesign change.</li>
-                        </ul>
-                    </li>
-                    <li>Email Account management</li>
-                    <li>Miscellaneous work
-                        <ul>
-                            <li>Computer fix, other troubleshooting and email account setup.</li>
-                        </ul>
-                    </li>
-                </ol>
+                <p><a href="https://www.kyoya.co.nz">Kyoya Japanese Restaurant</a> (in Takapuna) was established in 1995 and has been loved by local customers. The restaurant is well-known for the authentic Japanese cuisine.</p>
             </div>
             <div>
                 <h3>Shimizu Corporation (Singapore)</h3>
                 <span>2004 - 2014</span>
-                <span><strong>IT System Engineer (2007 - 2014)</strong></span>
-                <span><strong>Marketing / Corporate Planner (2004 - 2007)</strong></span>
+                <span><strong>Developer / ICT All-Rounder</strong></span>
 
-                <p>Shimizu Corporation is a leading architectural, civil engineering and general construction firm with annual sales of approximately US $15billion. It has been widely recognised as one of the top 5 contractors in Japan and among the top 20 in the world. The overseas operations of the firm is headquartered in Singapore and has overseas branches in more than 20 countries.</p>
-                <ol>
-                    <li>Website Development / Management (<a href="https://www.kyoya.co.nz">www.kyoya.co.nz</a>)
-                        <ul>
-                            <li>I have developed the new website with PHP, HTML, CSS and JavaScript and am
-    currently working on further development.</li>
-                        </ul>
-                    </li>
-                    <li>New domain acquisition (kyoya.co.nz) and setting up the website environment
-                        <ul>
-                            <li>I made a domain request on behalf of the restaurant by corresponding with the web hosting provider.</li>
-                        </ul>
-                    </li>
-                    <li>Gift voucher/Drink menu design
-                        <ul>
-                            <li>Designed a new gift voucher by using an online design tool.</li>
-                        </ul>
-                    </li>
-                    <li>Design/photograph processing for websites and other purposes (Adobe suites)
-                        <ul>
-                            <li>Process images for the website by using Adobe suites and GIMP. Also engaged indesign change.</li>
-                        </ul>
-                    </li>
-                    <li>Email Account management</li>
-                    <li>Miscellaneous work
-                        <ul>
-                            <li>Computer fix, other troubleshooting and email account setup.</li>
-                        </ul>
-                    </li>
-                </ol>
+                <p><a href="https://www.shimz.co.jp/en/">Shimizu Corporation</a> is a leading architectural, civil engineering and general construction firm with annual sales of approximately US $15billion. It has been widely recognised as one of the top 5 contractors in Japan and among the top 20 in the world. The overseas operations of the firm is headquartered in Singapore and has overseas branches in more than 20 countries.</p>
             </div>
         </section>
         <section id="interests">
@@ -723,18 +650,18 @@
                 <img src="images/book.jpg" alt="Book">
             </div>
             <div>
-                <span>Radio Listening</span>
+                <span>Radio</span>
                 <img src="images/radio.jpg" alt="Radio">
             </div>
         </section>
     </main>
     <footer>
-        <a href="mailto:kotarowat@gmail.com">Kotaro</a>
-        <span>Good day!</span>
+        <a href="mailto:kotarowat@gmail.com">KotaroW</a>
+        <span>This website is powered by VNL-Framework.</span>
     </footer>
     <div id="backtotop" onclick="backToTop();">
         <span>
-            &#8679;
+            &#10140;
         </span>    
     </div>   
 
@@ -931,7 +858,7 @@
                             done = true;
                             var targets = document.querySelectorAll("#education > div > div");
                             for (var index = 0; index < targets.length; index++) {
-                                animationCallback (targets[index], ((index + 1) * 0.5).toString() + "s");
+                                animationCallback (targets[index], ((index + 1) * 0.75).toString() + "s");
                             }
                         }
 
@@ -1017,6 +944,22 @@
             rotateObj.startRotate ();
 
         }
+        
+        window.addEventListener(
+            "scroll",
+            function () {
+                var totalHeight = document.documentElement.scrollHeight;
+                var scrolled = window.scrollY;
+                if (scrolled / totalHeight > 0.3) {
+                    document.body.style.backgroundImage = "url(./images/couple.jpg)";
+                }
+                else {
+                    document.body.style.backgroundImage = "url(./images/fox2.jpg)";
+                }
+            },
+            false
+        );
+        
 //alert(window.getComputedStyle(document.querySelector("nav")).getPropertyValue("height"));
     </script>
 
