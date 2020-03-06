@@ -5,6 +5,85 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">	
 	<link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto|Ubuntu" rel="stylesheet">
+    <script>
+        
+    class GaugeMe {
+    
+    // default gauge colour. change it if you wish
+    static get DEFAULT_COLOUR() { return "#369"; }
+    static get PERCENTAGE_STEP() { return 0.1; }
+    static get INTERVAL()    { return 0.5; }
+    
+    constructor(canvasId, percentage, colour, displayElementId) {
+        this.canvas = this.getCanvas(canvasId);
+        this.percentage = !isNaN(parseInt(percentage)) ? percentage : 0;
+        this.colour = colour ? colour : GaugeMe.DEFAULT_COLOUR;
+        this.displayElement = document.getElementById(displayElementId) ? document.getElementById(displayElementId) : null;
+        this.currentPercentage = 0;
+        // recursion tracker (setTimeout)
+        this.timer = null;
+    }
+    
+    getCanvas (canvasId) {
+        var canvas = document.getElementById(canvasId);
+        canvas = (canvas && canvas.constructor.name.toLowerCase() == "htmlcanvaselement") ? canvas : null;
+        return canvas;
+    }
+    
+    // draws the line
+    gauge (that) {
+        if (!that) {
+            that = this;
+        }
+        
+        if ((that.percentage - that.currentPercentage) < 0.0001 ) {
+            if (that.timer) {
+                window.clearTimeout(that.timer);
+            }
+            return;
+        }
+        
+        that.currentPercentage += GaugeMe.PERCENTAGE_STEP;
+        
+        if (that.displayElement) {
+            that.displayElement.textContent = that.currentPercentage.toFixed(2) + "%";
+        }
+        
+        var width = (that.canvas.getAttribute("width")) / 100 * that.currentPercentage;
+        
+        var context = that.canvas.getContext("2d");
+        context.beginPath();
+        context.fillStyle = that.colour;
+        context.fillRect(0, 0, width, 5);
+        
+        that.timer = setTimeout(
+            function () {
+                that.gauge(that);
+            },
+            GaugeMe.INTERVAL
+        );
+    }
+    
+    // no longer needed
+    static adjustWidth(baseElement) {
+        baseElement = (baseElement && baseElement.__proto__.__proto__.constructor.name.toLowerCase() == 'htmlelement') ? baseElement : document.body;
+        
+        var canvases = document.querySelectorAll("canvas");
+        canvases = (canvases && canvases.constructor.name.toLowerCase() == "nodelist") ? Array.prototype.slice.call(canvases) : null;
+        
+        canvases.forEach(
+            function (canvas) {
+                var baseWidth = parseInt(window.getComputedStyle(baseElement).getPropertyValue("width"));
+                canvas.setAttribute("width", baseWidth);
+            }
+        );
+    }
+}
+    
+    
+    
+    </script>
+    
 <style>
 /******
     Here come the styles
@@ -216,6 +295,28 @@
 		border: double 5px #369;
 	}
     */
+    main > section:nth-of-type(2) > div {
+        background: #fff;
+        padding: 1em;
+        max-width: 58em;
+        margin: auto;
+    }
+    main > section:nth-of-type(2) > div > div {
+        margin: 1em;
+    }
+    main > section:nth-of-type(2) h3 {
+        color: #888;
+        font-size: 2em;
+    }
+    main > section:nth-of-type(2) h3 > span {
+        font-size: 0.4em;
+    }
+    canvas {
+        border: solid 1px #ccc;
+        width: 100%;
+        height: 5px;
+    }
+    /*
 	main > section:nth-of-type(2) > div {
 		display: flex;
 		flex-flow: row;
@@ -260,6 +361,7 @@
 		background: #aa0;
 		color: #fff;
 	}
+    */
 	section#education > div {
 		display: flex;
 		flex-flow: row;
@@ -375,7 +477,7 @@
     #interests div > span {
         display: block;
         position: absolute;
-        font-size: 5vw;
+        font-size: 4vw;
         color: #fff;
         text-shadow: 1px 1px #000;
     }
@@ -542,37 +644,12 @@
             <p>I am an experienced Information Technology All-rounder with a strong focus on web development, programming as well as a wealth of knowledge and experience in user-support, troubleshooting, hardware and software and information security.</p>
             <p>As a technical person, I am skilled at providing high quality services in the overall ICT areas and
     applying my strong technical and problem-solving skills to get things done quickly and properly. I am also an excellent team player who can bring stability and robustness to the team.</p>
-            <p>After 10 successful years in Singapore, I migrated to New Zealand in 2014 and completed a Post Graduate study in Information Technology in May 2017. <!--After the completion of my study, I have undertaken two volunteer IT roles to gain New Zealand experience, one of which is ongoing.--> I’m currently working for Hearts &amp; Minds (formerly known as Raeburn House) as a Developer/IT Coordinator.</p>
-            <!--<p>I’m a work visa holder and the visa will not expire until June 2021.</p>-->
+            <p>After 10 successful years in Singapore, I migrated to New Zealand in 2014 and completed a Post Graduate study in Information Technology in May 2017. I’m currently working for Hearts &amp; Minds (formerly known as Raeburn House) as a Developer/IT Coordinator.</p>
         </section>
 
-        <section>
+        <section id="skills">
             <h2><span>Skills</span></h2>
-            <div>
-                <div>
-                    <h3>Web Development / Programming</h3>
-                    <p>Gained firm knowledge and experience in HTML5, CSS3, JavaScript (Native, jQuery and AngularJs) and PHP. With these strong technical skills I am capable of quickly adapting to any new web technologies or frameworks which are new to me. I also possess knowledge on C#, ASP.Net, Perl, Python, C, C++ and Java, which enables me to learn new programming languages or frameworks very rapidly. During my post graduate course, I learnt R language for data mining.</p>
-                </div>
-                <div>
-                    <h3>Help Desk / User support</h3>
-                        <p>Extensive experience in IT service desk, handling a wide range of IT issues including but not limited to hardware, software, virus/malware removal, and basic data recovery. I am capable of working on multiple issues at one time.</p>
-                </div>
-                <div>
-                    <h3>Server Administration</h3>
-                        <p>Acquired an intermediate level of Linux server administration with Ubuntu server, database servers and Apache web server. I have experience in server setup for the web development purpose (server software installation, and server configuration). I understand and use Linux commands to conduct server operations.</p>
-                </div>
-                <div>
-                    <h3>Database</h3>
-                        <p>Possess fair knowledge of MySQL and MS SQL through testing environments, which can be converted into working knowledge. Through my post-graduate diploma course, I have gained a fair understanding of data modelling, normalisation and database design.</p>
-                </div>
-                <div>
-                    <h3>Problem solving</h3>
-                        <p>Well developed analytical capability to quickly reach the cause of the problem and come up with possible solutions. I possess “never give up” attitude and try the best I can until the problem is solved.</p>
-                </div>
-                <div>
-                    <h3>Interpersonal skills</h3>
-                        <p>Good at building long-lasting trusted relationships with people via different communication channels. In my previous jobs, I often played a role of a mediator who connects people from different cultures. I have also developed skills to collect information from various sources through my 13-year corporate career.</p>
-                </div>
+            <div id="skill-list">
             </div>
         </section>
 
@@ -954,15 +1031,64 @@
                     document.body.style.backgroundImage = "url(./images/couple.jpg)";
                 }
                 else {
-                    document.body.style.backgroundImage = "url(./images/fox2.jpg)";
+                    document.body.style.backgroundImage = "url(./fox2.jpg)";
                 }
             },
             false
         );
         
-//alert(window.getComputedStyle(document.querySelector("nav")).getPropertyValue("height"));
+        
+        !function() {
+            var canvasComponents = [
+                ["HTML", 90.8, "#298", "html-num"],
+                ["CSS", 89.5, "#298", "css-num"],
+                ["PHP", 88.2, "#298", "php-num"],
+                ["Javascript", 92.7, "#298", "js-num"],
+                ['Python', 72.7, "#863", "py-num"],
+                ['Perl', 79.1, "#782", "perl-num"]
+            ];
+            
+            const indexCanvasId     = 0;
+            const indexPercentage   = 1;
+            const indexColour       =2;
+            const indexDisplayId    = 3;
+            
+            canvasComponents.forEach(function (comp) {
+                var div = document.createElement("div");
+                
+                div.innerHTML = "<h3>" + comp[indexCanvasId] + "<span id='" + comp[indexDisplayId] + "'></span></h3>" + 
+                "<canvas id='" + comp[indexCanvasId].toLowerCase() + "' width='100' height='5'></canvas>";
+                document.querySelector("#skill-list").appendChild(div);
+            });
+            
+            var gaugeDone = false;
+            
+            window.addEventListener(
+                "scroll",
+                function () {
+                    var top = document.querySelector("#skills").getBoundingClientRect().top;
+                    
+                    if (top < 0 && !gaugeDone) {
+                        canvasComponents.forEach(
+                            function (comp) {
+                                new GaugeMe(
+                                    comp[indexCanvasId].toLowerCase(),
+                                    comp[indexPercentage],
+                                    comp[indexColour],
+                                    comp[indexDisplayId]
+                                ).gauge();
+                            }
+                        );
+                        gaugeDone = true;
+                    }
+                },
+                false
+            );
+            
+        }();
+        
+//console.log(window.getComputedStyle(document.querySelector("nav")).getPropertyValue("height"));
     </script>
 
 </body>
 </html>
-
