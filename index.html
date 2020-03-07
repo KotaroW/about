@@ -265,10 +265,10 @@
 		max-width: 38em;
 		font-size: 1.15em;
 		line-height: 1.8;
-		background: #ddd;
+		background: #222;
 		padding: 3em 2em;
 		margin-bottom: 0.5em;
-        color: #333;
+        color: #aaa;
 	}
 	main > section:first-of-type p::first-letter {
 		font-size: 3em;
@@ -276,7 +276,7 @@
         line-height: 0.5em;
         margin: 0.2em 0.1em 0.1em 0;
 		float: left;
-		color: #888;
+		color: #555;
 	}
 	main > section:first-of-type p:nth-of-type(even) {
 		margin: 0 auto 0.5em;
@@ -296,13 +296,14 @@
 	}
     */
     main > section:nth-of-type(2) > div {
-        background: #fff;
+        background: #ccc;
         padding: 1em;
-        max-width: 58em;
-        margin: auto;
     }
     main > section:nth-of-type(2) > div > div {
-        margin: 1em;
+        max-width: 48em;
+        margin: auto;
+        padding: 1em 2em;
+        background: #fff;
     }
     main > section:nth-of-type(2) h3 {
         color: #888;
@@ -315,6 +316,7 @@
         border: solid 1px #ccc;
         width: 100%;
         height: 5px;
+        background: #ddd;
     }
     /*
 	main > section:nth-of-type(2) > div {
@@ -372,7 +374,7 @@
 	}
 	section#education > div > div {
 		flex: 1 1 360px;
-		margin: auto 2.5%;
+		margin: 0 20px;
 		opacity: 0;
 	}
     section#education > div > div > div {
@@ -392,13 +394,16 @@
         z-index: 10;
         box-sizing: border-box;
 	}
+    section#education img + div {
+        border: solid 3px #997;
+        border-radius: 15px;
+    }
     section#education div div div span {
         display: block;
         margin-top: 1em;
         text-align: center;
     }
     #work-experience {
-        background: #ececec;
         color: #555;
     }
     #work-experience h2 > span {
@@ -445,6 +450,9 @@
     }
     #work-experience > div {
         padding: 6em 1em;
+    }
+    #work-experience > div:nth-of-type(even) {
+        background: #efefef;
     }
     #work-experience > div:nth-of-type(odd) {
         background: #fff;
@@ -611,6 +619,35 @@
     .animationPaused {
         animation-play-state: paused !important;
     }
+    nav #menu-bar + a {
+        color: #fff;
+    }
+    span#menu-bar {
+        position: relative;
+        display: inline-block;
+        width: 1em;
+        top: 0.25em;
+        left: -0.25em;
+    }
+    .bar1, .bar2, .bar3 {
+        display: block;
+        width: 100%;
+        background: #fff;
+        height: 1px;
+        margin: 0.25em 0;
+        transition: 0.5s;
+    }
+    .change .bar1 {
+        transform-origin: 95%;
+        transform: rotate(-45deg);
+    }
+    .change .bar3 {
+	   transform: rotate(45deg);
+        transform-origin: 95%;
+    }
+    .change .bar2 {
+        opacity: 0;
+    }
     
 </style>
 </head>
@@ -618,7 +655,9 @@
     <div id="psudoBackground"></div>
     <nav>
         <ul>
-            <li id="menu-toggler" ><a href="javascript:void(0);" onclick="toggleMenu(this);">&#35;MENU</a></li>
+            <li id="menu-toggler" ><a href="javascript:void(0);" onclick="toggleMenu(this);" style="color:#fff;"><!--&#35;--><span id="menu-bar"><span class="bar1"></span>
+<span class="bar2"></span>
+<span class="bar3"></span></span> MENU</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#education">Education</a></li>
@@ -745,7 +784,8 @@
     <script>
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             var pseudoBackground = document.createElement("div");
-            pseudoBackground.style.background = "url(./images/couple.jpg) no-repeat center center";
+            pseudoBackground.setAttribute("id", "pseudo-bg");
+            pseudoBackground.style.background = "url(./images/fox2.jpg) no-repeat center center";
             pseudoBackground.style.backgroundSize = "cover";
             pseudoBackground.style.position = "fixed";
             pseudoBackground.style.top = "0";
@@ -973,6 +1013,7 @@
         }
         
         function toggleMenu () {
+            document.querySelector("#menu-bar").classList.toggle("change");
             var setDisplay = function () {
                 var lis = document.querySelectorAll ("nav  li");
                 for (var index = 0; index < lis.length; index++) {
@@ -1040,12 +1081,12 @@
         
         !function() {
             var canvasComponents = [
-                ["HTML", 90.8, "#298", "html-num"],
-                ["CSS", 89.5, "#298", "css-num"],
-                ["PHP", 88.2, "#298", "php-num"],
-                ["Javascript", 92.7, "#298", "js-num"],
-                ['Python', 72.7, "#863", "py-num"],
-                ['Perl', 79.1, "#782", "perl-num"]
+                ["HTML", 90.8, "red", "html-num"],
+                ["CSS", 89.5, "green", "css-num"],
+                ["PHP", 88.2, "blue", "php-num"],
+                ["Javascript", 92.7, "orange", "js-num"],
+                ['Python', 72.7, "purple", "py-num"],
+                ['Perl', 79.1, "black", "perl-num"]
             ];
             
             const indexCanvasId     = 0;
@@ -1056,7 +1097,7 @@
             canvasComponents.forEach(function (comp) {
                 var div = document.createElement("div");
                 
-                div.innerHTML = "<h3>" + comp[indexCanvasId] + "<span id='" + comp[indexDisplayId] + "'></span></h3>" + 
+                div.innerHTML = "<h3>" + comp[indexCanvasId] + " <span id='" + comp[indexDisplayId] + "'></span></h3>" + 
                 "<canvas id='" + comp[indexCanvasId].toLowerCase() + "' width='100' height='5'></canvas>";
                 document.querySelector("#skill-list").appendChild(div);
             });
@@ -1092,3 +1133,4 @@
 
 </body>
 </html>
+
